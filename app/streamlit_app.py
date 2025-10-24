@@ -2,21 +2,19 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
+from datetime import datetime
 
-
-# Get the directory of this file (app/)
+# ------------------------------------------------------
+# Safe model loading
+# ------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Build safe absolute paths to the models
 model_time_path = os.path.join(BASE_DIR, "../Models/flowcast_travel_time_model.pkl")
 model_fare_path = os.path.join(BASE_DIR, "../Models/flowcast_fare_model.pkl")
 
-# Load models safely
 try:
     model_time = joblib.load(model_time_path)
     model_fare = joblib.load(model_fare_path)
 except FileNotFoundError:
-    import streamlit as st
     st.error("❌ Model files not found. Check your folder structure and capitalization ('Models').")
     st.stop()
 
@@ -31,17 +29,23 @@ st.write("Estimate **average inter-ward travel time and fare** in Bangalore usin
 # Sidebar inputs
 # ------------------------------------------------------
 st.sidebar.header("Input Parameters")
+
+# Distance input
 distance_km = st.sidebar.slider("Distance (km)", 0.5, 25.0, 6.0, 0.5)
-hod = st.sidebar.slider("Hour of Day (0–23)", 0, 23, 9)
-rush_hour = 1 if hod in list(range(8,11)) + list(range(17,21)) else 0
-st.sidebar.write(f"Rush Hour: {'Yes' if rush_hour else 'No'}")
+
+# Time input
+selected_time = st.sidebar.time_input("Select Time of Day", datetime.strptime("09:00", "%H:%M").time())
+hod = selected_time.hour
+
+# Manual Rush Hour toggle
+rush_hour_option = st.sidebar.radio("Rush Hour", ["Yes", "No"])
+rush_hour = 1 if rush_hour_option == "Yes" else 0
 
 # ------------------------------------------------------
 # Predict button
 # ------------------------------------------------------
 if st.sidebar.button("Predict"):
-    X_input = pd.DataFrame([[distance_km, hod, rush_hour]],
-                           columns=["distance_km", "hod", "rush_hour"])
+    X_input = pd.DataFrame([[distance_km, hod, rush_hour]], columns=["distance_km", "hod", "rush_hour"])
     
     pred_time = model_time.predict(X_input)[0]
     pred_fare = model_fare.predict(X_input)[0]
