@@ -50,6 +50,10 @@ if st.sidebar.button("Predict"):
     pred_time = model_time.predict(X_input)[0]
     pred_fare = model_fare.predict(X_input)[0]
 
+    # If not rush hour, reduce travel time by 5 minutes (300 seconds)
+    if rush_hour == 0:
+        pred_time = max(0, pred_time - 300)
+
     # Display results
     st.subheader("Predictions")
     col1, col2 = st.columns(2)
