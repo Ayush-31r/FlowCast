@@ -15,6 +15,11 @@ It combines **spatial (distance)** and **temporal (hour of day)** features with 
 
 ---
 
+## 🌐 Live Demo  
+👉 [**FlowCast : Bangalore Travel Time & Fare Predictor**](https://flowcast-project.streamlit.app/)
+
+---
+
 ## 🧠 Approach  
 
 1. **Data Preparation**
@@ -49,11 +54,6 @@ It combines **spatial (distance)** and **temporal (hour of day)** features with 
 - **Distance** explains ~76 % of the variance in travel time.  
 - Central and IT-corridor wards show the highest congestion.  
 - Random Forest achieved strong accuracy (R² ≈ 0.67) with minimal preprocessing.  
-
----
-
-## 🌐 Live Demo  
-👉 [**FlowCast : Bangalore Travel Time & Fare Predictor**](https://flowcast-project.streamlit.app/)
 
 ---
 
