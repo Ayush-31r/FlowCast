@@ -53,7 +53,7 @@ It combines **spatial (distance)** and **temporal (hour of day)** features with 
 ---
 
 ## 🌐 Live Demo  
-👉 [**FlowCast : Bangalore Travel Time & Fare Predictor**](https://<your-username>-bangalore-traffic-ml.streamlit.app)
+👉 [**FlowCast : Bangalore Travel Time & Fare Predictor**](https://flowcast-project.streamlit.app/)
 
 ---
 
