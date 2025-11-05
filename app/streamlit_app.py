@@ -1,12 +1,24 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
-# ------------------------------------------------------
-# Load trained models
-# ------------------------------------------------------
-model_time = joblib.load("../Models/flowcast_travel_time_model.pkl")
-model_fare = joblib.load("../Models/flowcast_fare_model.pkl")
+
+# Get the directory of this file (app/)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Build safe absolute paths to the models
+model_time_path = os.path.join(BASE_DIR, "../Models/flowcast_travel_time_model.pkl")
+model_fare_path = os.path.join(BASE_DIR, "../Models/flowcast_fare_model.pkl")
+
+# Load models safely
+try:
+    model_time = joblib.load(model_time_path)
+    model_fare = joblib.load(model_fare_path)
+except FileNotFoundError:
+    import streamlit as st
+    st.error("❌ Model files not found. Check your folder structure and capitalization ('Models').")
+    st.stop()
 
 # ------------------------------------------------------
 # App config
