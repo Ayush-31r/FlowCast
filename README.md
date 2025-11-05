@@ -63,7 +63,6 @@ It combines **spatial (distance)** and **temporal (hour of day)** features with 
 |:--------------------------:|:----------------:|
 | ![map](docs/map.png) | ![hourly](docs/hourly_plot.png) |
 
-*(optional – add screenshots from your notebook or app)*
 
 ---
 
